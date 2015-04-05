@@ -1,0 +1,67 @@
+/* entire container, keeps perspective */
+.flip-container {
+	perspective: 1000;
+}
+	/* flip the coin 10 times when flipped */
+	.flip-container.heads .flipper {
+		transform: rotateY(3600deg);
+	}
+	.flip-container.tails .flipper {
+		transform: rotateY(3420deg);
+	}
+
+.flip-container, .front, .back {
+	width: 150px;
+	height: 150px;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 3s;
+	transform-style: preserve-3d;
+	position: relative;
+
+	/* easing... mess around with number to get more realistic flip */
+	/*
+	-webkit-transition-timing-function: cubic-bezier(.07,.94,.45,.97);
+  transition-timing-function: cubic-bezier(.07,.94,.45,.97);
+	*/
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+}
+
+
+/* button */
+#flip-button {
+  border: 0;
+  margin: 10px;
+  background: #3498db;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  padding: 12px 20px;
+}
+
+button:hover {
+	background: #3cb0fd;
+}
