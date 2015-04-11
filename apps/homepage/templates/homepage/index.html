@@ -1,0 +1,235 @@
+<%! import simplepages as spc %>
+
+<%inherit file="base.html"/>
+
+<%block name="css">
+    ${ parent.css() }
+    <style>
+    .fb-comments, .fb-comments iframe[style] {width: 100% !important;}
+    </style>
+</%block>
+
+<div id="fb-root"></div>
+<script type="text/javascript" >(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=213661895466131";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- begin:slider -->
+<div id="home">
+  <div id="home-slider" class="carousel slide carousel-fade" data-ride="carousel">
+    <ol class="carousel-indicators">
+      % for i, _ in enumerate(carousel_slides):
+      <li data-target="#home-slider" data-slide-to="${ i }" ${ 'class=\"active\"' if i == 0 else '' }></li>
+      % endfor
+    </ol>
+    <div class="carousel-inner">
+      % for i, slide in enumerate(carousel_slides):
+      <div class="item${ ' active' if i == 0 else '' }" style="background: url(${ slide.background });">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="carousel-content">
+                <%
+                  if slide.position == spc.CAROUSEL_POSITION_CENTER:
+                    title_class = 'fadeInUpBig text-center'
+                    if i == 0:
+                      title_class = 'fadeInDownBig text-center'
+                    subtitle_class = 'text-center'
+                  elif slide.position == spc.CAROUSEL_POSITION_LEFT:
+                    title_class = 'fadeInRightBig text-left'
+                    subtitle_class = 'fadeInUpBig text-left'
+                  elif slide.position == spc.CAROUSEL_POSITION_RIGHT:
+                    title_class = 'fadeInLeftBig text-right'
+                    subtitle_class = 'fadeInUpBig text-right'
+                %>
+                <h3 class="animated text-black ${ title_class }">${ slide.title | n }</h3>
+                <p class="animated rollIn text-black ${ subtitle_class }">
+                  <span class="text900">${ slide.subtitle | n }</span>
+                </p>
+                % if slide.link_url and slide.link_text:
+                <p class="${ subtitle_class }">
+                  <a class="btn btn-purple btn-lg animated fadeInRight" href="${ slide.link_url }">${ slide.link_text }</a>
+                </p>
+                % endif
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      % endfor
+    </div>
+    <a class="left carousel-control" href="#home-slider" data-slide="prev">
+      <i class="fa fa-angle-left"></i>
+    </a>
+    <a class="right carousel-control" href="#home-slider" data-slide="next">
+      <i class="fa fa-angle-right"></i>
+    </a>
+##    <div class="pattern"></div>
+  </div>
+
+</div>
+<!-- end:slider -->
+
+<!-- begin:tagline -->
+<div id="tagline">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                % if messages:
+                    % for message in messages:
+                        <div class="alert alert-success" role="alert">${ message }</div>
+                    % endfor
+                % else:
+                <form class="form-inline" role="form" action="/join-newsletter/" method="post">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label class="sr-only" for="first_name_text">First Name</label>
+                            <input type="text" name="first_name" class="form-control" id="first_name_text" placeholder="First Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label class="sr-only" for="last_name_text">Last Name</label>
+                            <input type="text" name="last_name" class="form-control" id="last_name_text" placeholder="Last Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label class="sr-only" for="email_input">Email address</label>
+                            <input type="email" name="email" class="form-control" id="email_input" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label class="sr-only" for="interest_input">Interest</label>
+                            <select class="form-control" name="interest" id="interest_input">
+                                <option>I'm Interested In...</option>
+                                <option>Childrens Classes</option>
+                                <option>Adult Classes</option>
+                                <option>All Classes</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-default">Join Mailing List</button>
+                </form>
+                % endif
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end:tagline -->
+
+<!-- begin:featured -->
+<div id="featured">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-4">
+                <div class="featured-container">
+                    <a href="/programs/">
+                    <div class="featured-photos">
+                        <i class="fa fa-child"></i>
+                    </div>
+                    </a>
+                    <h3>Childrens Classes</h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="featured-container">
+                    <a href="/pilates/">
+                    <div class="featured-photos">
+                        <i class="fa fa-fire"></i>
+                    </div>
+                    </a>
+                    <h3>Pilates</h3>
+##                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus metus, at posuere neque.</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <div class="featured-container">
+                    <a href="/adult-fitness/">
+                    <div class="featured-photos">
+                        <i class="fa fa-group"></i>
+                    </div>
+                    </a>
+                    <h3>Adult Fitness</h3>
+##                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus metus, at posuere neque.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end:featured -->
+
+<!-- begin:testimoni -->
+<div id="testimoni">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="testimoni-icon"><i class="fa fa-quote-left"></i></div>
+                <h3>Our Testimonials</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="testi" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner">
+
+                    <div class="item active">
+                       <p class="testimoni-item">I take my girls to Flying Colors because Amy makes them feel special. She never makes them feel like they can't do anything and she goes above what she has to make each class fun for the kids.</p>
+                        <h4>&#8212; Jennifer L. &#8212;</h4>
+                    </div>
+                    <div class="item">
+                       <p class="testimoni-item">I knew nothing about Pilates before I started with Amy. I was scared to try it because I thought it was only for fit and trim people. Little did I know how much I would fall in love with the reformer and Amy is 100% responsible for that. She is a fun and relaxed person who works with you, your goals and your body type. She is the perfect blend of restoration and maintenance while giving the proper amount of challenge as well. I really can not say enough good things about my Pilates sessions.</p>
+                        <h4>&#8212; Lauren C. &#8212;</h4>
+                    </div>
+                    <div class="item">
+                       <p class="testimoni-item">Mrs. Amy is the best dance teacher I've ever met. She is great with the kids, they love her! Everyone should try any of her classes! She is great! The parade was a great experience as she made all the girls special. They had a great time and we will do it again. We love her! :)</p>
+                        <h4>&#8212; Isabel S. &#8212;</h4>
+                    </div>
+                    <div class="item">
+                       <p class="testimoni-item">I'm new to Pilates. I took six private lessons to get started, I had an elbow injury and because Amy is a skilled instructor she was able to modify and will help you get it right. Be ready to sweat because there is no hour you'll be working harder!</p>
+                        <h4>&#8212; Karyn P. &#8212;</h4>
+                    </div>
+                    <div class="item">
+                       <p class="testimoni-item">Miss Amy is amazing! We love everything about her class</p>
+                        <h4>&#8212; Kimberly L. &#8212;</h4>
+                    </div>
+                    <div class="item">
+                       <p class="testimoni-item">It was great to find this PIlates classes in my neighborhood! My husband and I took classes for several months, but due to our busy travel schedule, we had to stop for a while. Amy is a great instructor and a very careful designer of programs that fit different needs.</p>
+                        <h4>&#8212; Carolina R. &#8212;</h4>
+                    </div>
+                  </div>
+                  <a class="left carousel-control" href="#testi" data-slide="prev">&lsaquo;</a>
+                  <a class="right carousel-control" href="#testi" data-slide="next">&rsaquo;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end:testimoni -->
+
+
+<!-- begin:facebook/youtube -->
+<div class="page-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="fb-like-box" data-href="https://www.facebook.com/flyingcolorsdanceandfitness" data-width="100%" data-show-faces="true" data-header="true" data-stream="true" data-show-border="true"></div>
+            </div>
+            <div class="col-md-6">
+                <div class="embed-responsive embed-responsive-4by3">
+                    <iframe width="100%" height="315px" class="embed-responsive-item" src="//www.youtube.com/embed/mes-k-OIyWA"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end:facebook/youtube -->
