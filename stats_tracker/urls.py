@@ -6,7 +6,7 @@ urlpatterns = patterns(
 
     #url(r'^/$', include('stats_tracker.homepage.urls')),
     #url(r'^', include('stats_tracker.homepage.urls')),
-    url(r'^', include('homepage.urls')),
+    url(r'^', include('apps.homepage.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
 )
