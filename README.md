@@ -15,3 +15,6 @@ I suspect the mac install dynamic libraries don't play well with whateve require
 
 # stats-tracker
 Norm was here  Happy Pi day
+
+## Contributors
+Jourdan Bul-lalayao (jourdan@99gamers.com)
