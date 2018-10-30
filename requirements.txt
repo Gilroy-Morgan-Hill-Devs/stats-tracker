@@ -7,7 +7,7 @@ ipython==1.2.1
 Mako==0.9.1
 MarkupSafe==0.19
 Pillow==2.4.0
-requests==0.13.2
+requests==2.20.0
 six==1.7.3
 virtualenv==1.11.4
 wsgiref==0.1.2
