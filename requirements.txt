@@ -1,6 +1,6 @@
 django-bitfield==1.7.0
 django-mako==0.1.3
-Django==1.7.7
+Django==1.11.28
 djmako==0.4
 ipdb==0.8
 ipython==1.2.1
